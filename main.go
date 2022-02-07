@@ -10,6 +10,8 @@ import (
 	"golang.org/x/text/encoding/charmap"
 )
 
+const version = "0.1.0"
+
 func main() {
 	removeBom := flag.Bool("r", false, "Remove BOM at the begining of the file")
 	removeBomAll := flag.Bool("rab", false, "Remove all occurrences of BOM")
@@ -21,6 +23,7 @@ func main() {
 
 	// Print flags if no flags provided
 	if len(os.Args) < 2 {
+		fmt.Printf("Change encoding tool version: %s\n\n", version)
 		flag.PrintDefaults()
 		return
 	}
