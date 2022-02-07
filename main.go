@@ -13,10 +13,10 @@ import (
 const version = "0.1.0"
 
 func main() {
-	removeBom := flag.Bool("r", false, "Remove BOM at the begining of the file")
+	removeBom := flag.Bool("rb", false, "Remove BOM at the begining of the file")
 	removeBomAll := flag.Bool("rab", false, "Remove all occurrences of BOM")
 	listCodings := flag.Bool("l", false, "List all supported encodings")
-	decodeFrom := flag.String("d", "", `Decode to UTF-8. Parameter should contain encoding name (e.g. "ISO 8859-1")`)
+	decodeFrom := flag.String("e", "", `Input Encoding (e.g. "ISO 8859-1") - output will be UTF-8. If not specified encoding will not be changed`)
 	inFile := flag.String("i", "", "Input file")
 	outFile := flag.String("o", "", "Output file")
 	flag.Parse()
