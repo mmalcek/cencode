@@ -6,15 +6,18 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"golang.org/x/text/encoding/charmap"
 )
 
-const version = "0.1.0"
+const version = "0.2.0"
 
 func main() {
 	removeBom := flag.Bool("rb", false, "Remove BOM at the begining of the file")
 	removeBomAll := flag.Bool("rab", false, "Remove all occurrences of BOM")
+	removeCR := flag.Bool("rcr", false, "Replace all CRLF with LF")
+	addCR := flag.Bool("acr", false, "Replace all LF with CRLF")
 	listCodings := flag.Bool("l", false, "List all supported encodings")
 	decodeFrom := flag.String("e", "", `Input Encoding (e.g. "ISO 8859-1") - output will be UTF-8. If not specified encoding will not be changed`)
 	inFile := flag.String("i", "", "Input file")
@@ -72,6 +75,14 @@ func main() {
 				f = append(f[:i], f[i+3:]...)
 			}
 		}
+	}
+
+	if *removeCR {
+		f = []byte(strings.ReplaceAll(string(f), "\r\n", "\n"))
+	}
+
+	if *addCR {
+		f = []byte(strings.ReplaceAll(string(f), "\n", "\r\n"))
 	}
 
 	if *decodeFrom != "" && decodeFrom != nil {
